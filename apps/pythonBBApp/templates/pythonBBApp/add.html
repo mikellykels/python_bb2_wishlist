@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add Item</title>
+    </head>
+    <body>
+        <div id="container">
+
+            <div class="header">
+                <a href="{% url 'dashboard' %}">Home</a> | <a href="{% url 'logout' %}">Logout</a>
+            </div><!--end header-->
+
+            <div class="add_item">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                <h1>Create a New Wish List Item</h1>
+                <form action="{% url 'create' %}" method="post">
+                {% csrf_token %}
+                    <p>Item/Product:<input type="text" name="item" placeholder="Item"></p>
+                    <input type="submit" value="Add Item">
+                </form>
+            </div><!--end add_item-->
+
+        </div><!--end container-->
+    </body>
+</html>

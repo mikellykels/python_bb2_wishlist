@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wish List Dashboard</title>
+</head>
+<body>
+    <div id="container">
+
+    	<div class="header">
+    		<h3>Welcome {{ self.name }}</h3>
+    		<a href="{% url 'logout' %}">Logout</a>
+    	</div><!--end header-->
+        <hr>
+
+    	<div class="your_wishlist">
+            <h4>Your Wish List</h4>
+            <table>
+    			<tr>
+    				<th>Item</th>
+    				<th>Added By</th>
+    				<th>Date Added</th>
+    				<th>Action</th>
+    			</tr>
+                {% for item in wishlist %}
+    			<tr>
+    				<td><a href="{% url 'show_item' item_id=item.id %}">{{item.item}}</a></td>
+    				<td>{{item.user.name}}</td>
+    				<td>{{item.created_at}}</td>
+                    {% if item.user.id == request.session.user_id %}
+                    <td><a href="{% url 'delete' item_id=item.id %}">Delete</a></td>
+                    {% else %}
+    				<td><a href="{% url 'index' %}">Remove from my Wishlist!</a></td>
+                    {% endif %}
+    			</tr>
+    			{% endfor %}
+            </table>
+    	</div><!--end your_wishlist-->
+        <hr>
+    	<div class="other_wishlist">
+    	       <h4>Other User's Wish List</h4>
+                <table>
+        			<tr>
+        				<th>Item</th>
+        				<th>Added By</th>
+        				<th>Date Added</th>
+        				<th>Action</th>
+        			</tr>
+                    {% for item in wishlist %}
+                    <tr>
+                        {% if item.user.id != request.session.user_id %}
+                        <td><a href="{% url 'show_item' item_id=item.id %}">{{item.item}}</a></td>
+                        <td>{{item.user.name}}</td>
+        				<td>{{item.created_at}}</td>
+                        <td><a href="{% url 'create' %}">Add item to my wishlist</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+    	</div><!--end other_wishlist-->
+
+        <div class="add_item_wish">
+             <a href="{% url 'add' %}">Add Item to Wishlist</a>
+        </div><!--end add_item_wish-->
+
+    </div><!--end container-->
+</body>
+</html>

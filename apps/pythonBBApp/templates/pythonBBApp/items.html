@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Wish List Item</title>
+    </head>
+    <body>
+        <div id="container">
+
+            <div class="header">
+                <a href="{% url 'dashboard' %}">Home</a> | <a href="{% url 'logout' %}">Logout</a>
+            </div><!--end header-->
+
+            <div class="show_item">
+                <h2>{{ item.item }}</h2>
+            </div><!--end show_item-->
+
+            <div class="users_item">
+                <h4>Users who added this item under their wishlist:</h4>
+                <p>{{ item.user.name }}</p>
+            </div><!--end users_item-->
+
+        </div><!--end container-->
+    </body>
+</html>
